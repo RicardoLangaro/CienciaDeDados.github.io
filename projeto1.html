@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>c7add442ce064cb1a5c64aac155d56fa</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section
+id="usando-modelo-polinomial-para-estimar-a-potência-de-um-aero-gerador"
+class="cell markdown" id="Wca_Pz_CXr-x">
+<h3>Usando Modelo Polinomial para estimar a Potência de um Aero
+Gerador.</h3>
+<p>Apartir da tabela dada com a velocidade do vento e a potência gerada,
+sendo a primeira coluna a velocidade do Vento em (m/s) e a segunda
+coluna a Potência (watt) de saída. Faremos:</p>
+<p>1 – Análise descritiva</p>
+<p>2 – Um modelo de regressão simples e uma regressão polinomial</p>
+<p>3 – Análise comparativa dos modelos e métricas</p>
+</section>
+<div class="cell code" data-execution_count="16"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:466}"
+id="u_S5scVJXq3E" data-outputId="ec71fd57-8f1b-4c91-a30f-54dae292f03c">
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&#39;./aero_gerador.txt&#39;</span>,sep<span class="op">=</span><span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>,decimal<span class="op">=</span><span class="st">&#39;.&#39;</span>, header<span class="op">=</span><span class="va">None</span>).drop(columns<span class="op">=</span>[<span class="dv">2</span>])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="dv">0</span>: <span class="st">&quot;velocidade&quot;</span>, <span class="dv">1</span>: <span class="st">&quot;potencia&quot;</span>})</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">15</span>)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="16">
+
+  <div id="df-92191c05-67e7-46b6-aa73-8fdfdb4e014d" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>velocidade</th>
+      <th>potencia</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2.9</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2.9</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>2.9</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3.0</td>
+      <td>18</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-92191c05-67e7-46b6-aa73-8fdfdb4e014d')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-92191c05-67e7-46b6-aa73-8fdfdb4e014d button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-92191c05-67e7-46b6-aa73-8fdfdb4e014d');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-f3dd6777-64de-4662-a6e5-063bf387d8cc">
+  <button class="colab-df-quickchart" onclick="quickchart('df-f3dd6777-64de-4662-a6e5-063bf387d8cc')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-f3dd6777-64de-4662-a6e5-063bf387d8cc button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="cell code" data-execution_count="17"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:300}"
+id="D2dKoK-tYqIh" data-outputId="b15af19f-aa3c-4905-a9ec-524d3f350a8e">
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code></pre></div>
+<div class="output execute_result" data-execution_count="17">
+
+  <div id="df-4c7d202e-52f0-4cdb-97dd-92476c6f22ee" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>velocidade</th>
+      <th>potencia</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2250.000000</td>
+      <td>2250.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>9.142844</td>
+      <td>298.367111</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.801278</td>
+      <td>105.475604</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>8.100000</td>
+      <td>226.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>8.900000</td>
+      <td>281.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>10.100000</td>
+      <td>368.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>14.400000</td>
+      <td>522.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-4c7d202e-52f0-4cdb-97dd-92476c6f22ee')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-4c7d202e-52f0-4cdb-97dd-92476c6f22ee button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-4c7d202e-52f0-4cdb-97dd-92476c6f22ee');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-98cd6fb7-9378-420c-a4b3-acf8ee97bd0d">
+  <button class="colab-df-quickchart" onclick="quickchart('df-98cd6fb7-9378-420c-a4b3-acf8ee97bd0d')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-98cd6fb7-9378-420c-a4b3-acf8ee97bd0d button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="cell code" data-execution_count="18"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="-83Duq6xYrT3" data-outputId="cbbf369a-14cf-40bf-f54c-7372b2bf9f62">
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()</span></code></pre></div>
+<div class="output execute_result" data-execution_count="18">
+<pre><code>velocidade    0
+potencia      0
+dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="6KuPEIP3dg7a">
+<p>Temos ao total 2250 valores, dos quais a media da potencia é maior
+que a média da velocidade. Os valores de potencia têm um desvio maior da
+media que os valores da velocidade. Os dois possuem valores mínimos
+zero, isto é o motor estava desligado no início da medição, e a maioria
+das medições apresentam valores altos tanto de velocidade quanto de
+potência.</p>
+<p>Vemos que não possuímos valores nulos, então não precisamos tratar
+este.</p>
+<p>Como o problema nos parece simples, com apenas 2 variáveis, geraremos
+agora 3 regressões linear simples e analisemos o porquê este modelo
+simples pode não ser a melhor solução.</p>
+<p>1 - Modelo linear X¹</p>
+</div>
+<div class="cell code" data-execution_count="19"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="0zrIBnT0fkCk" data-outputId="141a516e-19a7-431a-e6e5-f2fb6e39eb1e">
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>lm1 <span class="op">=</span> sm.OLS.from_formula(<span class="st">&quot;potencia ~ velocidade&quot;</span>, data<span class="op">=</span>df)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>model_1 <span class="op">=</span> lm1.fit()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Análise do Modelo 1:&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_1.summary())</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Análise do Modelo 1:
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               potencia   R-squared:                       0.929
+Model:                            OLS   Adj. R-squared:                  0.929
+Method:                 Least Squares   F-statistic:                 2.949e+04
+Date:                Sat, 10 Feb 2024   Prob (F-statistic):               0.00
+Time:                        23:13:30   Log-Likelihood:                -10695.
+No. Observations:                2250   AIC:                         2.139e+04
+Df Residuals:                    2248   BIC:                         2.141e+04
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept   -217.6903      3.063    -71.069      0.000    -223.697    -211.684
+velocidade    56.4439      0.329    171.714      0.000      55.799      57.088
+==============================================================================
+Omnibus:                     1016.638   Durbin-Watson:                   0.699
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            48686.115
+Skew:                           1.380   Prob(JB):                         0.00
+Kurtosis:                      25.621   Cond. No.                         48.8
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</code></pre>
+</div>
+</div>
+<div class="cell code" data-execution_count="20"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:489}"
+id="eckBk8vPgNa1" data-outputId="a70078b9-bc87-4207-ff3c-a754659e2527">
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> sm.graphics.plot_ccpr(model_1, <span class="st">&quot;velocidade&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fig.tight_layout(pad<span class="op">=</span><span class="fl">1.0</span>)</span></code></pre></div>
+<div class="output display_data">
+<p><img
+src=" projeto1/49ee2226672169b72fd8d9b8499f87c304a441ed.png" /></p>
+</div>
+</div>
+<div class="cell code" data-execution_count="21"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="zyHGsceqiG54" data-outputId="535729ab-9cd2-4e1b-d990-6fb33f4b8499">
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lm1 <span class="op">=</span> sm.OLS.from_formula(<span class="st">&quot;potencia ~ velocidade ** 2&quot;</span>, data<span class="op">=</span>df)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>model_2 <span class="op">=</span> lm1.fit()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Análise do Modelo 2:&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_2.summary())</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Análise do Modelo 2:
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               potencia   R-squared:                       0.929
+Model:                            OLS   Adj. R-squared:                  0.929
+Method:                 Least Squares   F-statistic:                 2.949e+04
+Date:                Sat, 10 Feb 2024   Prob (F-statistic):               0.00
+Time:                        23:13:31   Log-Likelihood:                -10695.
+No. Observations:                2250   AIC:                         2.139e+04
+Df Residuals:                    2248   BIC:                         2.141e+04
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept   -217.6903      3.063    -71.069      0.000    -223.697    -211.684
+velocidade    56.4439      0.329    171.714      0.000      55.799      57.088
+==============================================================================
+Omnibus:                     1016.638   Durbin-Watson:                   0.699
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            48686.115
+Skew:                           1.380   Prob(JB):                         0.00
+Kurtosis:                      25.621   Cond. No.                         48.8
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</code></pre>
+</div>
+</div>
+<div class="cell code" data-execution_count="22"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="0AUJJVZLiG0J" data-outputId="4489f432-5bf7-4c9b-8321-03f3a35e97a9">
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lm1 <span class="op">=</span> sm.OLS.from_formula(<span class="st">&quot;potencia ~ velocidade ** 3&quot;</span>, data<span class="op">=</span>df)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>model_3 <span class="op">=</span> lm1.fit()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Análise do Modelo 3:&quot;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_3.summary())</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Análise do Modelo 3:
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               potencia   R-squared:                       0.929
+Model:                            OLS   Adj. R-squared:                  0.929
+Method:                 Least Squares   F-statistic:                 2.949e+04
+Date:                Sat, 10 Feb 2024   Prob (F-statistic):               0.00
+Time:                        23:13:31   Log-Likelihood:                -10695.
+No. Observations:                2250   AIC:                         2.139e+04
+Df Residuals:                    2248   BIC:                         2.141e+04
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept   -217.6903      3.063    -71.069      0.000    -223.697    -211.684
+velocidade    56.4439      0.329    171.714      0.000      55.799      57.088
+==============================================================================
+Omnibus:                     1016.638   Durbin-Watson:                   0.699
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            48686.115
+Skew:                           1.380   Prob(JB):                         0.00
+Kurtosis:                      25.621   Cond. No.                         48.8
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</code></pre>
+</div>
+</div>
+<div class="cell code" data-execution_count="23"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="PiE75VEDon27" data-outputId="30e62e0d-d2f0-4ca7-a1ad-a30f8ae759dd">
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> [] <span class="co"># armazenamos todos os modelos para comparacao</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>results.append({</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Modelo&#39;</span>: <span class="st">&#39;Modelo 1 - velocidade&#39;</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;MAE&#39;</span>: np.mean(np.<span class="bu">abs</span>(df[<span class="st">&#39;velocidade&#39;</span>] <span class="op">-</span> model_1.predict())),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;MSE&#39;</span>: np.mean((df[<span class="st">&#39;velocidade&#39;</span>] <span class="op">-</span> model_1.predict())<span class="op">**</span><span class="dv">2</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;AIC&#39;</span>: model_1.aic,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;BIC&#39;</span>: model_1.bic,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;R²&#39;</span>: model_1.rsquared</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>results.append({</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Modelo&#39;</span>: <span class="st">&#39;Modelo 2 - velocidade**2&#39;</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;MAE&#39;</span>: np.mean(np.<span class="bu">abs</span>(df[<span class="st">&#39;velocidade&#39;</span>] <span class="op">-</span> model_2.predict())),</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;MSE&#39;</span>: np.mean((df[<span class="st">&#39;velocidade&#39;</span>] <span class="op">-</span> model_2.predict())<span class="op">**</span><span class="dv">2</span>),</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;AIC&#39;</span>: model_2.aic,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;BIC&#39;</span>: model_2.bic,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;R²&#39;</span>: model_2.rsquared</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>results.append({</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Modelo&#39;</span>: <span class="st">&#39;Modelo 3 - velocidade**3&#39;</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;MAE&#39;</span>: np.mean(np.<span class="bu">abs</span>(df[<span class="st">&#39;velocidade&#39;</span>] <span class="op">-</span> model_3.predict())),</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;MSE&#39;</span>: np.mean((df[<span class="st">&#39;velocidade&#39;</span>] <span class="op">-</span> model_3.predict())<span class="op">**</span><span class="dv">2</span>),</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;AIC&#39;</span>: model_3.aic,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;BIC&#39;</span>: model_3.bic,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;R²&#39;</span>: model_3.rsquared</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar um DataFrame com os resultados</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>results_df <span class="op">=</span> pd.DataFrame(results)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir a tabela de resultados</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results_df)</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>                     Modelo         MAE           MSE           AIC  \
+0     Modelo 1 - velocidade  291.802833  93620.218443  21394.871046   
+1  Modelo 2 - velocidade**2  291.802833  93620.218443  21394.871046   
+2  Modelo 3 - velocidade**3  291.802833  93620.218443  21394.871046   
+
+            BIC       R²  
+0  21406.308417  0.92916  
+1  21406.308417  0.92916  
+2  21406.308417  0.92916  
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="Jeg3cx2QqTKT">
+<p>Para exemplo de teste, geramos 3 modelos das mesmas variaveis, e
+vemos que embora elevemos a velocidade ao quadrado, não surte efeito na
+linearização. Os modelos são identicos, uma vez que temos redundância na
+variavel de entrada, apenas 1 variavel velocidade.</p>
+<p>O modelo 1 atende a demanda com uma correlação ótima R &gt; 0,9.</p>
+<h3 id="teste-de-normalidade-dos-resíduos">Teste de Normalidade dos
+resíduos</h3>
+<blockquote>
+<p>Ho = distribuição normal : p &gt; 0.05</p>
+</blockquote>
+<blockquote>
+<p>Ha = distribuição != normal : p &lt;= 0.05</p>
+</blockquote>
+</div>
+<div class="cell code" data-execution_count="24"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="NQ3hbWdlqtgA" data-outputId="26794fb3-dc4d-4de0-c890-bfcf88f7f081">
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> stats.shapiro(model_1.resid)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>res.pvalue</span></code></pre></div>
+<div class="output execute_result" data-execution_count="24">
+<pre><code>0.0</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="dtVApzV9sK-s">
+<p>P mostra que não possui distribuição normal, p &lt; 0,05. Neste caso
+o valor de p violou a suposição de normalidade.</p>
+</div>
+<div class="cell code" data-execution_count="25"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:472}"
+id="_oGOf17XsaUX" data-outputId="091e1919-baee-46ab-ff45-c0933b7a9cb7">
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>model1_norm_resid <span class="op">=</span> model_1.get_influence().resid_studentized_internal <span class="co"># Residuos normalizados</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>stats.probplot( model1_norm_resid, dist<span class="op">=</span><span class="st">&#39;norm&#39;</span>, plot<span class="op">=</span>plt )</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="output display_data">
+<p><img
+src=" projeto1/a5ee2bf4b863abf462ab3d4daf9822c7c71b1a3f.png" /></p>
+</div>
+</div>
+<section id="análise-da-homocedasticidade-dos-resíduos"
+class="cell markdown" id="zl2I40Zctuy5">
+<h3>Análise da Homocedasticidade dos resíduos</h3>
+<p>(resíduos com variação constante)</p>
+<p><strong>Teste Breusch-Pagan (Homocedasticidade ou
+heterocedasticidade)</strong></p>
+<blockquote>
+<p>Ho = existe homocedasticidade : p &gt; 0.05</p>
+</blockquote>
+<blockquote>
+<p>Ha = não existe homocedasticidade : p &lt;= 0.05</p>
+</blockquote>
+</section>
+<div class="cell code" data-execution_count="26"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:449}"
+id="t3NqPPvKtxif" data-outputId="78dc8ebd-873b-4c63-8915-07226fc26ba5">
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(y<span class="op">=</span>model1_norm_resid, x<span class="op">=</span>model_1.predict(), color<span class="op">=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.hlines(y<span class="op">=</span><span class="dv">0</span>, xmin<span class="op">=-</span><span class="dv">200</span>, xmax<span class="op">=</span><span class="dv">800</span>, color<span class="op">=</span><span class="st">&#39;orange&#39;</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Resíduos&#39;</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Valores Preditos&#39;</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="output display_data">
+<p><img
+src=" projeto1/ea6dd5fbd56d97d8958a111098ea30d85f520066.png" /></p>
+</div>
+</div>
+<div class="cell code" data-execution_count="27"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="DQEWpivRuQfn" data-outputId="58934830-849c-443e-fb19-6691c7fc8f09">
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.compat <span class="im">import</span> lzip</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.api <span class="im">as</span> sms</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>estatistica, p, f, fp <span class="op">=</span> sms.het_breuschpagan(model_1.resid, model_1.model.exog)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<div class="output execute_result" data-execution_count="27">
+<pre><code>3.8664237670560016e-36</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="BEmfWXD6ueVn">
+<p>Agora, testamos como o resíduo se comporta. Em modelos lineares,
+espera-se que o erro seja constante ao longo do tempo, ou seja, que o
+erro seja homocedastico.</p>
+<p>Entretanto, concluimos que não há homocedasticidade no resíduo, pois
+p tende a zero.</p>
+<p>Concluimos que embora o modelo linear seja facil e rápido para
+simplificar um problema, ele não se mostra apropriado a esse caso.</p>
+<p>Para o caso não linear podemos utilizar-se de um polinômio de 3
+ordem, faremos o modelo abaixo.</p>
+</div>
+<div class="cell code" data-execution_count="32"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:282}"
+id="b3lpK-qSwtKj" data-outputId="3682fc0a-eacb-4d12-85fd-2b7fa9f67073">
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>modelopolinomial <span class="op">=</span> np.poly1d(np.polyfit(df[<span class="st">&#39;velocidade&#39;</span>], df[<span class="st">&#39;potencia&#39;</span>], <span class="dv">3</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>y3 <span class="op">=</span> modelopolinomial(df[<span class="st">&#39;velocidade&#39;</span>])</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ax.scatter(df[<span class="st">&#39;velocidade&#39;</span>], df[<span class="st">&#39;potencia&#39;</span>])<span class="op">;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ax.plot(df[<span class="st">&#39;velocidade&#39;</span>],y3,color<span class="op">=</span><span class="st">&#39;red&#39;</span>)<span class="op">;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">&#39;Polinomio de 3º&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="output error" data-ename="TypeError"
+data-evalue="_polyfit_dispatcher() got an unexpected keyword argument &#39;marker&#39;">
+<pre><code>---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-32-62c15e242dc8&gt; in &lt;cell line: 2&gt;()
+      1 import numpy as np
+----&gt; 2 modelopolinomial = np.poly1d(np.polyfit(df[&#39;velocidade&#39;], df[&#39;potencia&#39;], 3, marker=&quot;.&quot;))
+      3 y3 = modelopolinomial(df[&#39;velocidade&#39;])
+      4 
+      5 fig, ax = plt.subplots(1, 1)
+
+/usr/local/lib/python3.10/dist-packages/numpy/core/overrides.py in polyfit(*args, **kwargs)
+
+TypeError: _polyfit_dispatcher() got an unexpected keyword argument &#39;marker&#39;
+</code></pre>
+</div>
+</div>
+<div class="cell code" data-execution_count="29"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="t_MV_bAuxmtP" data-outputId="503e167a-f584-465d-d19e-692d9b11a2a0">
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, mean_absolute_error</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>caracteristicas_3 <span class="op">=</span> PolynomialFeatures(degree<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>X_Polinomio_3 <span class="op">=</span> caracteristicas_3.fit_transform( df[<span class="st">&#39;velocidade&#39;</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) )</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="op">=</span> LinearRegression()</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>modelo3.fit(X_Polinomio_3, df[<span class="st">&#39;potencia&#39;</span>])</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>Y_Polinomio_3 <span class="op">=</span> modelo3.predict(X_Polinomio_3)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>MAE3 <span class="op">=</span> mean_absolute_error( df[<span class="st">&#39;potencia&#39;</span>], Y_Polinomio_3)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>MSE3 <span class="op">=</span> np.sqrt(mean_squared_error( df[<span class="st">&#39;potencia&#39;</span>],Y_Polinomio_3))</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;MAE (grau=3) = </span><span class="sc">{:0.4f}</span><span class="st">&quot;</span>.<span class="bu">format</span>(MAE3))</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;MSE (grau=3) = </span><span class="sc">{:0.4f}</span><span class="st">&quot;</span>.<span class="bu">format</span>(MSE3))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>MAE (grau=3) = 12.0707
+MSE (grau=3) = 18.5599
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="dkT2mv1j27Sn">
+<p>Aqui temos o Erro Absoluto Médio (MAE) e o Erro Quadrático Médio
+(MSE) em relação ao valor predito. Se nesse modelo o valor de Y predito
+seja 2, o valor MAE sugere um erro de 2+-MAE, já MSE sugere um erro
+2+-MSE. Vejamos o gráfico do modelo em vermelho com as faixas de erros
+em rosa e rosa escuro.</p>
+</div>
+<div class="cell code" data-execution_count="31"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:452}"
+id="EmYCSmdY0GTI" data-outputId="25288ce9-e093-41fe-8174-35f98f04ea75">
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ax.scatter(df[<span class="st">&#39;velocidade&#39;</span>], df[<span class="st">&#39;potencia&#39;</span>], marker<span class="op">=</span><span class="st">&quot;.&quot;</span>)<span class="op">;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ax.plot(df[<span class="st">&#39;velocidade&#39;</span>],y3 <span class="op">+</span> MSE3 ,color<span class="op">=</span><span class="st">&#39;purple&#39;</span>)<span class="op">;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>ax.plot(df[<span class="st">&#39;velocidade&#39;</span>],y3 <span class="op">+</span> MAE3 ,color<span class="op">=</span><span class="st">&#39;pink&#39;</span>)<span class="op">;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>ax.plot(df[<span class="st">&#39;velocidade&#39;</span>],y3 ,color<span class="op">=</span><span class="st">&#39;red&#39;</span>)<span class="op">;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>ax.plot(df[<span class="st">&#39;velocidade&#39;</span>],y3 <span class="op">-</span> MAE3 ,color<span class="op">=</span><span class="st">&#39;pink&#39;</span>)<span class="op">;</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>ax.plot(df[<span class="st">&#39;velocidade&#39;</span>],y3 <span class="op">-</span> MSE3 ,color<span class="op">=</span><span class="st">&#39;purple&#39;</span>)<span class="op">;</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">&#39;Estimativa da Potência com um Polinômio de 3º&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="output display_data">
+<p><img
+src=" projeto1/4171bc65a7c97e25fbb397064dfd6e549e1f490e.png" /></p>
+</div>
+</div>
+<div class="cell markdown" id="NCwHN8lTT5L_">
+<p>Estima-se que os valores preditos estão dentro da faixa de confiança,
+lembrando que alguns pontos dispersos podem representar outliers e
+medidas errôneas, também entendemos que o erro médio é obtido de 2250
+amostras, onde a grande maioria esta dentro da faixa de confiança.</p>
+</div>
+</body>
+</html>
