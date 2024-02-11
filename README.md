@@ -10,6 +10,6 @@
 <a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/projeto3.html"> Projeto 3 - Predição de Temperatura Utilizando Séries Temporais e Sarima
 Utilizando-se do Dataset Elnino.</a>
 
-<a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/seg-class-imagens.html"> Projeto 4 - Segmentação e Classificação de Imagens usando Técnicas Clássicas e Deep Learning.</a>
+<a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/seg-class-imagens.html"> Projeto 4 - Segmentação e Classificação de Imagens usando Técnicas Clássicas e Deep Learning com Plantas.</a>
 
 <a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/projeto4.html"> Projeto 5 - Uso de Árvores de Decisão para Classificar Plantas.</a>
