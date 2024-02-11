@@ -7,3 +7,6 @@
 
 <a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/projeto2.html"> Projeto 2 - Usando Regressão Logística para Determinar a Probabilidade de um Usuário Comprar um SUV Baseado em Idade e Salário.</a>
 
+<a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/projeto3.html"> Projeto 3 - Predição de Temperatura Utilizando Séries Temporais e Sarima
+Utilizando-se do Dataset Elnino.</a>
+
