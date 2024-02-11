@@ -1,4 +1,4 @@
-&#127922; Projetos e Rascunhos em Ciência de Dados
+&#127922; Projetos em Ciência de Dados e Processamento de Imagens
 -
 &#127922; Autor : Ricardo R Lângaro
 #
@@ -10,3 +10,4 @@
 <a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/projeto3.html"> Projeto 3 - Predição de Temperatura Utilizando Séries Temporais e Sarima
 Utilizando-se do Dataset Elnino.</a>
 
+<a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/seg-class-imagens.html"> Projeto 4 - Segmentação e Classificação de Imagens usando Técnicas Clássicas e Deep Learning.</a>
