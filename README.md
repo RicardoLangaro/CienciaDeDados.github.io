@@ -1,7 +1,6 @@
-Projetos e Rascunhos em Ciência de Dados
+&#127922; Projetos e Rascunhos em Ciência de Dados
 -
 &#127922; Autor : Ricardo R Lângaro
-
 #
 
 <a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/projeto1.html"> Projeto 1 - Usando Modelo Polinomial para estimar a Potência de um Aero Gerador.</a>
