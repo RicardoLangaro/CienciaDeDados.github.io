@@ -1,0 +1,3073 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comparação de Métricas entre Regressão Logística e Árvore de Decisão.</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section
+id="comparação-de-métricas-entre-regressão-logística-e-árvore-de-decisão"
+class="cell markdown" id="e9yTIwo6WDBU">
+<h1>Comparação de Métricas entre Regressão Logística e Árvore de Decisão.</h1>
+<p>Autor : Ricardo R Lângaro.</p>
+<p>Banco utilizado: Detecção de doenças no fígado.</p>
+<p><a
+href="https://www.kaggle.com/datasets/uciml/indian-liver-patient-records"
+class="uri">https://www.kaggle.com/datasets/uciml/indian-liver-patient-records</a></p>
+<p>Descrição do banco:</p>
+<blockquote>
+<p>Este banco contém registro de 416 pacientes diagnosticados com doença
+no fígado e 167 pacientes sem. Esta informação está na coluna
+Selector.</p>
+<p>Há 10 variáveis no banco:</p>
+<ul>
+<li>age: idade</li>
+<li>Gender: gênero do paciente</li>
+<li>TB: Bilirrubina total</li>
+<li>DB: Bilirrubina direta</li>
+<li>Alkphos: fosfatase alcalina.</li>
+<li>Sgpt: transaminase glutâmico-pirúvica sérica (TGP)</li>
+<li>Sgot: transaminase glutâmico-oxalacética sérica (TGO)</li>
+<li>TP: Proteína total</li>
+<li>ALB: Albumina</li>
+<li>A/G Ratio: Relação Albumina:Globulina</li>
+</ul>
+</blockquote>
+<p>Objetivo : Tomando como decisão o f1 score e precisão, decidiremos
+qual modelo logístico ou de árvore melhor se adequa ao problema de
+pacientes com doença no fígado. Qual é o melhor modelo?</p>
+</section>
+<section id="-carga-do-banco" class="cell markdown" id="407ENJcYYaQN">
+<h2>## Carga do banco</h2>
+</section>
+<div class="cell code" data-execution_count="500" id="4zQuqod4V-Wp">
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dataframe <span class="op">=</span> pd.read_csv(<span class="st">&#39;IndianLiverPatientDataset.csv&#39;</span>)</span></code></pre></div>
+</div>
+<div class="cell code" data-execution_count="501"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:206}"
+id="w-Sk_EqjYpJL" data-outputId="a14f9086-fa13-4452-de2e-0a89f888a6db">
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dataframe.head(<span class="dv">5</span>)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="501">
+
+  <div id="df-48e5edc6-b009-4cdb-9c7a-9f91c506fb5b" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+      <th>Selector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65</td>
+      <td>Female</td>
+      <td>0.7</td>
+      <td>0.1</td>
+      <td>187</td>
+      <td>16</td>
+      <td>18</td>
+      <td>6.8</td>
+      <td>3.3</td>
+      <td>0.90</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>62</td>
+      <td>Male</td>
+      <td>10.9</td>
+      <td>5.5</td>
+      <td>699</td>
+      <td>64</td>
+      <td>100</td>
+      <td>7.5</td>
+      <td>3.2</td>
+      <td>0.74</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>62</td>
+      <td>Male</td>
+      <td>7.3</td>
+      <td>4.1</td>
+      <td>490</td>
+      <td>60</td>
+      <td>68</td>
+      <td>7.0</td>
+      <td>3.3</td>
+      <td>0.89</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>58</td>
+      <td>Male</td>
+      <td>1.0</td>
+      <td>0.4</td>
+      <td>182</td>
+      <td>14</td>
+      <td>20</td>
+      <td>6.8</td>
+      <td>3.4</td>
+      <td>1.00</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72</td>
+      <td>Male</td>
+      <td>3.9</td>
+      <td>2.0</td>
+      <td>195</td>
+      <td>27</td>
+      <td>59</td>
+      <td>7.3</td>
+      <td>2.4</td>
+      <td>0.40</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-48e5edc6-b009-4cdb-9c7a-9f91c506fb5b')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-48e5edc6-b009-4cdb-9c7a-9f91c506fb5b button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-48e5edc6-b009-4cdb-9c7a-9f91c506fb5b');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-43a17d1e-00e9-4184-8a78-c142ec06f789">
+  <button class="colab-df-quickchart" onclick="quickchart('df-43a17d1e-00e9-4184-8a78-c142ec06f789')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-43a17d1e-00e9-4184-8a78-c142ec06f789 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="cell markdown" id="QQ0xyYyKnOSS">
+<p>renomeando as colunas</p>
+</div>
+<div class="cell code" data-execution_count="502"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:206}"
+id="hglxEbXSkcWb" data-outputId="29948442-4c62-4ccc-8616-4fe30dcfd0f0">
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dataframe <span class="op">=</span>dataframe.rename(columns<span class="op">=</span>{<span class="st">&#39;Age&#39;</span>: <span class="st">&#39;idade&#39;</span>,<span class="st">&#39;Gender&#39;</span>: <span class="st">&#39;genero&#39;</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;TB&#39;</span>: <span class="st">&#39;bt&#39;</span>,<span class="st">&#39;DB&#39;</span>: <span class="st">&#39;bd&#39;</span>,<span class="st">&#39;Alkphos&#39;</span>: <span class="st">&#39;fosfatase&#39;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;Sgpt&#39;</span>: <span class="st">&#39;sgpt&#39;</span>,<span class="st">&#39;Sgot&#39;</span>: <span class="st">&#39;sgot&#39;</span>,<span class="st">&#39;TP&#39;</span>: <span class="st">&#39;tp&#39;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;ALB&#39;</span>: <span class="st">&#39;alb&#39;</span>,<span class="st">&#39;A/G Ratio&#39;</span>: <span class="st">&#39;ag&#39;</span>,<span class="st">&#39;Selector&#39;</span>: <span class="st">&#39;doenca&#39;</span>})<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dataframe.head(<span class="dv">5</span>)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="502">
+
+  <div id="df-70ff85ae-0598-4dfe-95a1-c2e7f6084947" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>idade</th>
+      <th>genero</th>
+      <th>bt</th>
+      <th>bd</th>
+      <th>fosfatase</th>
+      <th>sgpt</th>
+      <th>sgot</th>
+      <th>tp</th>
+      <th>alb</th>
+      <th>ag</th>
+      <th>doenca</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65</td>
+      <td>Female</td>
+      <td>0.7</td>
+      <td>0.1</td>
+      <td>187</td>
+      <td>16</td>
+      <td>18</td>
+      <td>6.8</td>
+      <td>3.3</td>
+      <td>0.90</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>62</td>
+      <td>Male</td>
+      <td>10.9</td>
+      <td>5.5</td>
+      <td>699</td>
+      <td>64</td>
+      <td>100</td>
+      <td>7.5</td>
+      <td>3.2</td>
+      <td>0.74</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>62</td>
+      <td>Male</td>
+      <td>7.3</td>
+      <td>4.1</td>
+      <td>490</td>
+      <td>60</td>
+      <td>68</td>
+      <td>7.0</td>
+      <td>3.3</td>
+      <td>0.89</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>58</td>
+      <td>Male</td>
+      <td>1.0</td>
+      <td>0.4</td>
+      <td>182</td>
+      <td>14</td>
+      <td>20</td>
+      <td>6.8</td>
+      <td>3.4</td>
+      <td>1.00</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72</td>
+      <td>Male</td>
+      <td>3.9</td>
+      <td>2.0</td>
+      <td>195</td>
+      <td>27</td>
+      <td>59</td>
+      <td>7.3</td>
+      <td>2.4</td>
+      <td>0.40</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-70ff85ae-0598-4dfe-95a1-c2e7f6084947')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-70ff85ae-0598-4dfe-95a1-c2e7f6084947 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-70ff85ae-0598-4dfe-95a1-c2e7f6084947');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-ea4a7e03-6d3c-4f95-af9c-b67822673b27">
+  <button class="colab-df-quickchart" onclick="quickchart('df-ea4a7e03-6d3c-4f95-af9c-b67822673b27')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-ea4a7e03-6d3c-4f95-af9c-b67822673b27 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<section id="-análise-dos-dados" class="cell markdown"
+id="EM0rcK2FrViJ">
+<h2>## Análise dos Dados</h2>
+</section>
+<div class="cell markdown" id="MjljzzsLnQ79">
+<p>tratando os valores nulos primeiro</p>
+</div>
+<div class="cell code" data-execution_count="503"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="I4eF0M2skcPl" data-outputId="9aa873a8-490c-4f77-b9fe-bf9aa7c64b11">
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dataframe.isnull().<span class="bu">sum</span>()</span></code></pre></div>
+<div class="output execute_result" data-execution_count="503">
+<pre><code>idade        0
+genero       0
+bt           0
+bd           0
+fosfatase    0
+sgpt         0
+sgot         0
+tp           0
+alb          0
+ag           4
+doenca       0
+dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="B5bauCgjnxMu">
+<p>pela pequena quantidade sera tratado pela mediana</p>
+</div>
+<div class="cell code" data-execution_count="504" id="eiS8IRqUnw7F">
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dataframe[<span class="st">&#39;ag&#39;</span>].fillna(dataframe[<span class="st">&#39;ag&#39;</span>].median(), inplace <span class="op">=</span> <span class="va">True</span>)  <span class="co"># inplace substitui o registro</span></span></code></pre></div>
+</div>
+<div class="cell code" data-execution_count="505"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:206}"
+id="kvyAvj98Ys1l" data-outputId="96f9618a-b774-4008-b5c0-9f7c5098972e">
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dataframe_dummy <span class="op">=</span> pd.get_dummies(dataframe, drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dataframe_dummy.head(<span class="dv">5</span>)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="505">
+
+  <div id="df-8403c59b-a6e2-40d6-913d-aaef337e2462" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>idade</th>
+      <th>bt</th>
+      <th>bd</th>
+      <th>fosfatase</th>
+      <th>sgpt</th>
+      <th>sgot</th>
+      <th>tp</th>
+      <th>alb</th>
+      <th>ag</th>
+      <th>doenca</th>
+      <th>genero_Male</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65</td>
+      <td>0.7</td>
+      <td>0.1</td>
+      <td>187</td>
+      <td>16</td>
+      <td>18</td>
+      <td>6.8</td>
+      <td>3.3</td>
+      <td>0.90</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>62</td>
+      <td>10.9</td>
+      <td>5.5</td>
+      <td>699</td>
+      <td>64</td>
+      <td>100</td>
+      <td>7.5</td>
+      <td>3.2</td>
+      <td>0.74</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>62</td>
+      <td>7.3</td>
+      <td>4.1</td>
+      <td>490</td>
+      <td>60</td>
+      <td>68</td>
+      <td>7.0</td>
+      <td>3.3</td>
+      <td>0.89</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>58</td>
+      <td>1.0</td>
+      <td>0.4</td>
+      <td>182</td>
+      <td>14</td>
+      <td>20</td>
+      <td>6.8</td>
+      <td>3.4</td>
+      <td>1.00</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72</td>
+      <td>3.9</td>
+      <td>2.0</td>
+      <td>195</td>
+      <td>27</td>
+      <td>59</td>
+      <td>7.3</td>
+      <td>2.4</td>
+      <td>0.40</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-8403c59b-a6e2-40d6-913d-aaef337e2462')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-8403c59b-a6e2-40d6-913d-aaef337e2462 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-8403c59b-a6e2-40d6-913d-aaef337e2462');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-64030442-a44c-4e48-bce4-6a63d0aa45f0">
+  <button class="colab-df-quickchart" onclick="quickchart('df-64030442-a44c-4e48-bce4-6a63d0aa45f0')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-64030442-a44c-4e48-bce4-6a63d0aa45f0 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="cell markdown" id="5Z05pUfrm3dD">
+<p>Descobrindo qual numero 1, 2 classifica os sadios na classe
+'doenca'.</p>
+</div>
+<div class="cell code" data-execution_count="506"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="Ad17uH36mHXO" data-outputId="cab27571-e384-4290-993e-a42800e55e90">
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(dataframe_dummy[<span class="st">&#39;doenca&#39;</span>] <span class="op">==</span> <span class="dv">2</span> )</span></code></pre></div>
+<div class="output execute_result" data-execution_count="506">
+<pre><code>167</code></pre>
+</div>
+</div>
+<div class="cell code" data-execution_count="508"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:301}"
+id="W8SlVbZbokY9" data-outputId="69772bc2-a0a4-4358-aeef-4bc61d7844f7">
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dataframe_dummy.describe()</span></code></pre></div>
+<div class="output execute_result" data-execution_count="508">
+
+  <div id="df-1e27ec9e-ae93-4b07-82a0-8fc7cf3660cf" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>idade</th>
+      <th>bt</th>
+      <th>bd</th>
+      <th>fosfatase</th>
+      <th>sgpt</th>
+      <th>sgot</th>
+      <th>tp</th>
+      <th>alb</th>
+      <th>ag</th>
+      <th>doenca</th>
+      <th>genero_Male</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>44.746141</td>
+      <td>3.298799</td>
+      <td>1.486106</td>
+      <td>290.576329</td>
+      <td>80.713551</td>
+      <td>109.910806</td>
+      <td>6.483190</td>
+      <td>3.141852</td>
+      <td>0.946947</td>
+      <td>1.286449</td>
+      <td>0.756432</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>16.189833</td>
+      <td>6.209522</td>
+      <td>2.808498</td>
+      <td>242.937989</td>
+      <td>182.620356</td>
+      <td>288.918529</td>
+      <td>1.085451</td>
+      <td>0.795519</td>
+      <td>0.318495</td>
+      <td>0.452490</td>
+      <td>0.429603</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>4.000000</td>
+      <td>0.400000</td>
+      <td>0.100000</td>
+      <td>63.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>2.700000</td>
+      <td>0.900000</td>
+      <td>0.300000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>33.000000</td>
+      <td>0.800000</td>
+      <td>0.200000</td>
+      <td>175.500000</td>
+      <td>23.000000</td>
+      <td>25.000000</td>
+      <td>5.800000</td>
+      <td>2.600000</td>
+      <td>0.700000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>45.000000</td>
+      <td>1.000000</td>
+      <td>0.300000</td>
+      <td>208.000000</td>
+      <td>35.000000</td>
+      <td>42.000000</td>
+      <td>6.600000</td>
+      <td>3.100000</td>
+      <td>0.930000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>58.000000</td>
+      <td>2.600000</td>
+      <td>1.300000</td>
+      <td>298.000000</td>
+      <td>60.500000</td>
+      <td>87.000000</td>
+      <td>7.200000</td>
+      <td>3.800000</td>
+      <td>1.100000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>90.000000</td>
+      <td>75.000000</td>
+      <td>19.700000</td>
+      <td>2110.000000</td>
+      <td>2000.000000</td>
+      <td>4929.000000</td>
+      <td>9.600000</td>
+      <td>5.500000</td>
+      <td>2.800000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-1e27ec9e-ae93-4b07-82a0-8fc7cf3660cf')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-1e27ec9e-ae93-4b07-82a0-8fc7cf3660cf button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-1e27ec9e-ae93-4b07-82a0-8fc7cf3660cf');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-01df930f-c492-4016-aabf-094b6b917c85">
+  <button class="colab-df-quickchart" onclick="quickchart('df-01df930f-c492-4016-aabf-094b6b917c85')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-01df930f-c492-4016-aabf-094b6b917c85 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="cell code" data-execution_count="509"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}"
+id="akC-6va2urmB" data-outputId="c47cd552-ab72-4de8-bb1f-8a303c7ffe96">
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sns.pairplot(dataframe_dummy)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="output display_data">
+<pre><code>&lt;Figure size 1000x500 with 0 Axes&gt;</code></pre>
+</div>
+<div class="output display_data">
+<p><img
+src="projeto5/53844378f48111ad9c33b9150169a847d5e5f9a2.png" /></p>
+</div>
+</div>
+<div class="cell markdown" id="okQKIBgVvFUp">
+<p>Aqui detectamos algumas colunas estritamentes lineares, como</p>
+<p><strong>bd X bt;</strong></p>
+<p><strong>sgot X sgpt;</strong></p>
+<p><strong>alb X tp;</strong></p>
+<p><strong>alb X ag</strong></p>
+</div>
+<section id="-classificação-sem-filtro-de-outliers"
+class="cell markdown" id="FBN54Ub4eKHo">
+<h2># Classificação sem Filtro de Outliers</h2>
+</section>
+<section id="-modelo-de-regressão-logistica" class="cell markdown"
+id="uxtfBEUQYpna">
+<h2>## Modelo de Regressão Logistica</h2>
+</section>
+<div class="cell markdown" id="iEbE3JkHRKUe">
+<p>Utilizamos um modelo de regressão logistica para classificar os com
+doenças hepaticas. Primeiro separamos a base treino e base teste , sendo
+teste 20% da base.</p>
+</div>
+<div class="cell code" data-execution_count="535"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="hswW8lK2rSZH" data-outputId="2a16d77b-a164-4681-b499-87ec4231c642">
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split( dataframe_dummy.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_dummy[<span class="st">&#39;doenca&#39;</span>],</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                                    test_size<span class="op">=</span><span class="fl">.20</span>, random_state<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(X_train),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(Y_train),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(X_test),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(Y_test))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>466 466 117 117
+</code></pre>
+</div>
+</div>
+<div class="cell code" data-execution_count="536"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:350}"
+id="bR3xFRxAY2hr" data-outputId="f20fa21e-d75d-4d74-ea65-ca756bb02594">
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="op">=</span> LogisticRegression(penalty<span class="op">=</span><span class="va">None</span>, solver<span class="op">=</span><span class="st">&#39;lbfgs&#39;</span>, max_iter<span class="op">=</span><span class="dv">3000</span> )</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>model1.fit(X_train, Y_train)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># matriz de confusão do primeiro modelo</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>cnf_matrix <span class="op">=</span> metrics.confusion_matrix(Y_test, model1.predict(X_test) )</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>))  <span class="co">#Tamanho do plot</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>sns.heatmap( cnf_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">&quot;YlGnBu&quot;</span> ,fmt<span class="op">=</span><span class="st">&#39;g&#39;</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Matriz de Confusão&#39;</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Resposta Correta Base de Dados&#39;</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Resposta Predita&#39;</span>)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="536">
+<pre><code>Text(0.5, 3.722222222222216, &#39;Resposta Predita&#39;)</code></pre>
+</div>
+<div class="output display_data">
+<p><img
+src="projeto5/847f8868ec7ea335e41c39a3b42f4180a7745cc0.png" /></p>
+</div>
+</div>
+<section id="-interpretação-de-coeficientes" class="cell markdown"
+id="MhqIEkqzY94Q">
+<h2>## Interpretação de coeficientes</h2>
+</section>
+<div class="cell code" data-execution_count="537"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="J6e4eDYjiPN_" data-outputId="c609839b-242d-43f1-9cc1-a27e30d18fd9">
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(Y_test, model1.predict(X_test), target_names<span class="op">=</span>[<span class="st">&#39;Com doença Hepatica 0&#39;</span>,<span class="st">&#39;Sem doença Hepatica 1&#39;</span>]))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>                       precision    recall  f1-score   support
+
+Com doença Hepatica 0       0.81      0.91      0.86        88
+Sem doença Hepatica 1       0.56      0.34      0.43        29
+
+             accuracy                           0.77       117
+            macro avg       0.68      0.63      0.64       117
+         weighted avg       0.75      0.77      0.75       117
+
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="bWJpMpzapQy9">
+<p>Aqui observamos que o modelo ficou com valores bons, acima de
+0,80.</p>
+<p><strong>support</strong> : é a soma total do grupo.</p>
+<p><strong>Precisão</strong>: avalia a quantidade de verdadeiros
+positivos sobre a soma de todos os valores positivos. 80/(80+19)</p>
+<p><strong>Recall ou Sensibilidade</strong>: avalia a capacidade do
+método de detectar com sucesso resultados classificados como positivos
+sobre os Falsos Negativos. 80/(80+8)</p>
+<p>Este modelo classifica mais Falso negativo (19) do que Falso Positivo
+(8), ou seja erra para menos, classificando que menos pessoas têm doença
+hepatica que a realidade.</p>
+<p>Para termos uma melhor noção do treinamento utilizaremos a validação
+cruzada e retreinaremos o modelo. Na validação cruzada, o dataset é
+dividido aleatoriamente em varios grupos, o modelo é treinado com esses
+vários grupos separadamente e depois avaliados separadamente. Por fim,
+usamos a média das métricas para o modelo. Essa técnica ajuda a evitar a
+influência da divisão dos dados na métrica.</p>
+</div>
+<section id="validação-cruzada" class="cell markdown" id="62rFYdSLZVTP">
+<h2>Validação cruzada</h2>
+</section>
+<div class="cell code" data-execution_count="538"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="hlvw3g2dZXbo" data-outputId="aaf4f87c-4667-4d3e-acf2-eb1c3c8dab33">
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> cross_val_score( model1, dataframe_dummy.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_dummy[<span class="st">&#39;doenca&#39;</span>], cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">&#39;f1&#39;</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cross validation, aqui dividimos o dataset em n grupos e usamos a metrica de f1-score</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Pontuação dos 5 testes: </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Média do Cross-Validation : </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result.mean()))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Pontuação dos 5 testes: [0.82105263 0.80851064 0.82978723 0.82222222 0.83516484 0.82352941
+ 0.7816092  0.83516484 0.8125     0.86021505]
+Média do Cross-Validation : 0.8229756057401711
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="HR7RCcobu1hP">
+<p>Aqui observamos que o modelo ficou bom com a métrica F1, que pondera
+os falso negativo com o falso negativo.</p>
+</div>
+<section id="-modelo-de-árvore-de-decisão" class="cell markdown"
+id="iHa9mKShYsRy">
+<h2>## Modelo de Árvore de Decisão</h2>
+</section>
+<div class="cell code" data-execution_count="539"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="SPAoBw80Sxbp" data-outputId="7422c73b-d940-4fdc-9752-4e48b7a19a02">
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split( dataframe_dummy.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_dummy[<span class="st">&#39;doenca&#39;</span>],</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                                                    test_size<span class="op">=</span><span class="fl">.20</span>, random_state<span class="op">=</span><span class="dv">55</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(X_train),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(Y_train),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(X_test),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(Y_test))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>466 466 117 117
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="Aevvv_QXzxJW">
+<p>Aqui escolhemos uma árvore que quebra seus ramos em até 4 níveis de
+profundidade, isso resultaria em 4^2 = 16 folhas, ou grupos.</p>
+</div>
+<div class="cell code" data-execution_count="515"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:350}"
+id="8Mn1r-8VwyWp" data-outputId="e4d75e41-3b71-4500-c8ef-543393788759">
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> DecisionTreeClassifier( max_depth <span class="op">=</span> <span class="dv">4</span> )</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>model2.fit(X_train, Y_train)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># matriz de confusão do primeiro modelo</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>cnf_matrix <span class="op">=</span> metrics.confusion_matrix(Y_test, model2.predict(X_test) )</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>))  <span class="co">#Tamanho do plot</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>sns.heatmap( cnf_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">&quot;YlGnBu&quot;</span> ,fmt<span class="op">=</span><span class="st">&#39;g&#39;</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Matriz de Confusão&#39;</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Resposta Correta Base de Dados&#39;</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Resposta Predita&#39;</span>)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="515">
+<pre><code>Text(0.5, 3.722222222222216, &#39;Resposta Predita&#39;)</code></pre>
+</div>
+<div class="output display_data">
+<p><img
+src="projeto5/34ef54458815ef3394093dc73367232d23828ee5.png" /></p>
+</div>
+</div>
+<div class="cell code" data-execution_count="516"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="Xc-sK5dsJf8b" data-outputId="faa15275-733f-48db-ce61-d84423dc75c7">
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model2.get_n_leaves() <span class="co"># Retorne o número de folhas da árvore de decisão.</span></span></code></pre></div>
+<div class="output execute_result" data-execution_count="516">
+<pre><code>13</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="RTFIT11OKQP7">
+<p>Percebemos que a árvore não utilizou todas a profundidade dada.</p>
+</div>
+<section id="-interpretação-de-coeficientes" class="cell markdown"
+id="KNs-BFXEDF28">
+<h2>## Interpretação de coeficientes</h2>
+</section>
+<div class="cell code" data-execution_count="540"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="wykk_bggxDAr" data-outputId="a6396a5b-a9e0-4e1f-fb19-391048b5aafd">
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(Y_test, model2.predict(X_test), target_names<span class="op">=</span>[<span class="st">&#39;Com doença Hepatica 0&#39;</span>,<span class="st">&#39;Sem doença Hepatica 1&#39;</span>]))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>                       precision    recall  f1-score   support
+
+Com doença Hepatica 0       0.67      0.94      0.78        79
+Sem doença Hepatica 1       0.17      0.03      0.05        38
+
+             accuracy                           0.64       117
+            macro avg       0.42      0.48      0.41       117
+         weighted avg       0.50      0.64      0.54       117
+
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="-L83U4nB33IR">
+<p>Aqui observamos que a precisão foi afetada negativamente em relação a
+reg. logistica.</p>
+<p>Aqui erramos 37 pessoas classificando com a doença quando na verdade
+nao estavam. Tambem erramos 5 pessoas dizendo estar saldáveis quando não
+estavam.</p>
+<p><strong>support</strong> : é a soma total do grupo</p>
+<p><strong>Precisão</strong>: avalia a quantidade de verdadeiros
+positivos sobre a soma de todos os valores positivos. 74/(74+37)</p>
+<p><strong>Recall ou Sensibilidade</strong>: avalia a capacidade do
+método de detectar com sucesso resultados classificados como positivos
+sobre os Falsos Negativos. 74/(74+5)</p>
+<p>Este modelo classifica mais Falso negativo (19) do que Falso Positivo
+(8), ou seja erra para menos, classificando que menos pessoas têm doença
+hepatica que a realidade.</p>
+</div>
+<section id="validação-cruzada" class="cell markdown" id="dLM7xS37xNG9">
+<h2>Validação cruzada</h2>
+</section>
+<div class="cell code" data-execution_count="518"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="plyPuWnhxQJB" data-outputId="99d08e61-9d9b-45cd-e181-7911cf62be40">
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> cross_val_score( model2, dataframe_dummy.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_dummy[<span class="st">&#39;doenca&#39;</span>], cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">&#39;f1&#39;</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cross validation, aqui dividimos o dataset em n grupos e usamos a metrica de f1-score</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Pontuação dos 5 testes: </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result))</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Média do Cross-Validation : </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result.mean()))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Pontuação dos 5 testes: [0.73417722 0.77272727 0.82474227 0.8172043  0.79120879 0.80434783
+ 0.82828283 0.7826087  0.77777778 0.82474227]
+Média do Cross-Validation : 0.7957819244083416
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="p4pM1z8yxTh6">
+<p>Comparada a reg. logistica vemos que a classificação por árvore ficou
+pior na métrica geral de F1.</p>
+</div>
+<section id="-filtro-pontuação-z-para-outliers" class="cell markdown"
+id="5gFkZVaEcBoK">
+<h2># Filtro Pontuação-Z para Outliers</h2>
+<p>Também podemos aplicar um pequeno filtro para tirar os outliers.
+Calculamos a pontuação z de cada valor na amostra, em relação a média da
+amostra e desvio padrão, e então filtramos-os. Reavaliamos os modelos e
+vemos sua intereferência e qualidade.</p>
+</section>
+<div class="cell code" data-execution_count="519"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:424}"
+id="V_L39LQYxaEH" data-outputId="7091425f-a2c4-4b07-a635-c6c82aeb607f">
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>z0 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;idade&#39;</span>]))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>z1 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;bt&#39;</span>]))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>z2 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;bd&#39;</span>]))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>z3 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;fosfatase&#39;</span>]))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>z4 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;sgpt&#39;</span>]))</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>z5 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;sgot&#39;</span>]))</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>z6 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;tp&#39;</span>]))</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>z7 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;alb&#39;</span>]))</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>z8 <span class="op">=</span> np.<span class="bu">abs</span>(stats.zscore(dataframe_dummy[<span class="st">&#39;ag&#39;</span>]))</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">2.5</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># indice do outlier filtrado</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>indices_z0<span class="op">=</span>np.where(z0 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>indices_z1<span class="op">=</span>np.where(z1 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>indices_z2<span class="op">=</span>np.where(z2 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>indices_z3<span class="op">=</span>np.where(z3 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>indices_z4<span class="op">=</span>np.where(z4 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>indices_z5<span class="op">=</span>np.where(z5 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>indices_z6<span class="op">=</span>np.where(z6 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>indices_z7<span class="op">=</span>np.where(z7 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>indices_z8<span class="op">=</span>np.where(z8 <span class="op">&gt;</span> threshold)[<span class="dv">0</span>]</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> np.concatenate((indices_z0, indices_z1, indices_z2, indices_z3,indices_z4, indices_z5, indices_z6, indices_z7, indices_z8))</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecionando as linhas filtradas usando iloc</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>dataframe_filtrado <span class="op">=</span> dataframe_dummy.iloc[dataframe_dummy.index.difference(indices)]</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>dataframe_filtrado</span></code></pre></div>
+<div class="output execute_result" data-execution_count="519">
+
+  <div id="df-91521d3d-f2e1-4691-aad0-ea9e3a732632" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>idade</th>
+      <th>bt</th>
+      <th>bd</th>
+      <th>fosfatase</th>
+      <th>sgpt</th>
+      <th>sgot</th>
+      <th>tp</th>
+      <th>alb</th>
+      <th>ag</th>
+      <th>doenca</th>
+      <th>genero_Male</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65</td>
+      <td>0.7</td>
+      <td>0.1</td>
+      <td>187</td>
+      <td>16</td>
+      <td>18</td>
+      <td>6.8</td>
+      <td>3.3</td>
+      <td>0.90</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>62</td>
+      <td>10.9</td>
+      <td>5.5</td>
+      <td>699</td>
+      <td>64</td>
+      <td>100</td>
+      <td>7.5</td>
+      <td>3.2</td>
+      <td>0.74</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>62</td>
+      <td>7.3</td>
+      <td>4.1</td>
+      <td>490</td>
+      <td>60</td>
+      <td>68</td>
+      <td>7.0</td>
+      <td>3.3</td>
+      <td>0.89</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>58</td>
+      <td>1.0</td>
+      <td>0.4</td>
+      <td>182</td>
+      <td>14</td>
+      <td>20</td>
+      <td>6.8</td>
+      <td>3.4</td>
+      <td>1.00</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72</td>
+      <td>3.9</td>
+      <td>2.0</td>
+      <td>195</td>
+      <td>27</td>
+      <td>59</td>
+      <td>7.3</td>
+      <td>2.4</td>
+      <td>0.40</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>578</th>
+      <td>60</td>
+      <td>0.5</td>
+      <td>0.1</td>
+      <td>500</td>
+      <td>20</td>
+      <td>34</td>
+      <td>5.9</td>
+      <td>1.6</td>
+      <td>0.37</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>579</th>
+      <td>40</td>
+      <td>0.6</td>
+      <td>0.1</td>
+      <td>98</td>
+      <td>35</td>
+      <td>31</td>
+      <td>6.0</td>
+      <td>3.2</td>
+      <td>1.10</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>580</th>
+      <td>52</td>
+      <td>0.8</td>
+      <td>0.2</td>
+      <td>245</td>
+      <td>48</td>
+      <td>49</td>
+      <td>6.4</td>
+      <td>3.2</td>
+      <td>1.00</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>581</th>
+      <td>31</td>
+      <td>1.3</td>
+      <td>0.5</td>
+      <td>184</td>
+      <td>29</td>
+      <td>32</td>
+      <td>6.8</td>
+      <td>3.4</td>
+      <td>1.00</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>582</th>
+      <td>38</td>
+      <td>1.0</td>
+      <td>0.3</td>
+      <td>216</td>
+      <td>21</td>
+      <td>24</td>
+      <td>7.3</td>
+      <td>4.4</td>
+      <td>1.50</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>505 rows × 11 columns</p>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-91521d3d-f2e1-4691-aad0-ea9e3a732632')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-91521d3d-f2e1-4691-aad0-ea9e3a732632 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-91521d3d-f2e1-4691-aad0-ea9e3a732632');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-26a21221-109f-4b75-8f07-f4ecc738aa8a">
+  <button class="colab-df-quickchart" onclick="quickchart('df-26a21221-109f-4b75-8f07-f4ecc738aa8a')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-26a21221-109f-4b75-8f07-f4ecc738aa8a button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+  <div id="id_5071fbb0-fec0-4206-b5a2-66e12ce2f512">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('dataframe_filtrado')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_5071fbb0-fec0-4206-b5a2-66e12ce2f512 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('dataframe_filtrado');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="cell code" data-execution_count="520"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="Xn3FqUvSsKun" data-outputId="0ccd27ed-aab1-48b2-9b13-86a05d982989">
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Número de outliers filtrados : &#39;</span>, <span class="bu">len</span>(remove_dups(indices)) , <span class="st">&#39;,Indices : &#39;</span>, remove_dups(indices))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Número de outliers filtrados :  78 ,Indices :  [519, 531, 533, 535, 24, 25, 26, 27, 546, 547, 548, 559, 47, 49, 565, 571, 572, 575, 77, 80, 90, 92, 97, 100, 115, 116, 117, 118, 119, 120, 121, 128, 135, 161, 166, 168, 169, 177, 180, 181, 195, 199, 207, 215, 233, 238, 243, 246, 256, 259, 260, 265, 267, 269, 270, 271, 272, 273, 311, 370, 372, 410, 415, 419, 420, 429, 447, 452, 458, 478, 479, 491, 503, 504, 505, 506, 509, 510]
+</code></pre>
+</div>
+</div>
+<div class="cell code" data-execution_count="521"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="63WdQTk7KBhy" data-outputId="85c2d067-20ec-4b26-a21d-06987be5f7bb">
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_dups(lista):</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Remove os itens duplicados mas não mantém a ordem original.&quot;&quot;&quot;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">list</span>(<span class="bu">set</span>(lista))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Número de outliers filtrados : &#39;</span>, <span class="bu">len</span>(remove_dups(indices)) , <span class="st">&#39;,Indices : &#39;</span>, remove_dups(indices))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Número de outliers filtrados : &#39;</span>,<span class="bu">len</span>(dataframe) <span class="op">-</span> <span class="bu">len</span>(dataframe_filtrado), <span class="st">&#39;,Percentual de outliers : &#39;</span>, <span class="bu">int</span>((<span class="bu">len</span>(dataframe) <span class="op">-</span> <span class="bu">len</span>(dataframe_filtrado))<span class="op">/</span><span class="bu">len</span>(dataframe)<span class="op">*</span><span class="dv">100</span>),<span class="st">&#39;%&#39;</span>)</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Número de outliers filtrados :  78 ,Indices :  [519, 531, 533, 535, 24, 25, 26, 27, 546, 547, 548, 559, 47, 49, 565, 571, 572, 575, 77, 80, 90, 92, 97, 100, 115, 116, 117, 118, 119, 120, 121, 128, 135, 161, 166, 168, 169, 177, 180, 181, 195, 199, 207, 215, 233, 238, 243, 246, 256, 259, 260, 265, 267, 269, 270, 271, 272, 273, 311, 370, 372, 410, 415, 419, 420, 429, 447, 452, 458, 478, 479, 491, 503, 504, 505, 506, 509, 510]
+Número de outliers filtrados :  78 ,Percentual de outliers :  13 %
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="snB2lBA6uRxR">
+<p>Faremosuma segunda base de validação com os dados eliminados do
+treinamento.</p>
+</div>
+<div class="cell code" data-execution_count="522" id="_-GgWCyzsbus">
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dataframe_eliminados <span class="op">=</span> dataframe_dummy.iloc[remove_dups(indices)]</span></code></pre></div>
+</div>
+<div class="cell code" data-execution_count="523"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}"
+id="G87wy9_yyDiV" data-outputId="027546db-3ef7-44e7-a1a5-49e881fc546b">
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>sns.pairplot(dataframe_filtrado)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="output display_data">
+<pre><code>&lt;Figure size 1000x500 with 0 Axes&gt;</code></pre>
+</div>
+<div class="output display_data">
+<p><img
+src="projeto5/25b88393c342ebf303a034b0dd13c4a23959cecf.png" /></p>
+</div>
+</div>
+<section id="-modelo-de-regressão-logistica" class="cell markdown"
+id="p4ZECIQ8eC0s">
+<h2>## Modelo de Regressão Logistica</h2>
+</section>
+<div class="cell markdown" id="oE8ozU6HeC0s">
+<p>Utilizamos um modelo de regressão logistica para classificar os com
+doenças hepaticas. Primeiro separamos a base treino e base teste , sendo
+teste 20% da base.</p>
+</div>
+<div class="cell code" data-execution_count="541"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="v7SxFzxNeC0t" data-outputId="bf02fa81-ce30-4653-9a23-7310651ebf9c">
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split( dataframe_filtrado.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_filtrado[<span class="st">&#39;doenca&#39;</span>],</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                                                    test_size<span class="op">=</span><span class="fl">.20</span>, random_state<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(X_train),</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(Y_train),</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(X_test),</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(Y_test))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>404 404 101 101
+</code></pre>
+</div>
+</div>
+<div class="cell code" data-execution_count="542"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:350}"
+id="hbapQLy_eC0t" data-outputId="e8db34ab-ab99-4fac-fd9b-5dc7945f474e">
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>model3 <span class="op">=</span> LogisticRegression(penalty<span class="op">=</span><span class="va">None</span>, solver<span class="op">=</span><span class="st">&#39;lbfgs&#39;</span>, max_iter<span class="op">=</span><span class="dv">3000</span> )</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>model3.fit(X_train, Y_train)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># matriz de confusão do primeiro modelo</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>cnf_matrix <span class="op">=</span> metrics.confusion_matrix(dataframe_filtrado[<span class="st">&#39;doenca&#39;</span>], model3.predict(dataframe_filtrado.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>)) )</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>))  <span class="co">#Tamanho do plot</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>sns.heatmap( cnf_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">&quot;YlGnBu&quot;</span> ,fmt<span class="op">=</span><span class="st">&#39;g&#39;</span>)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Matriz de Confusão&#39;</span>)</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Resposta Correta Base de Dados&#39;</span>)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Resposta Predita&#39;</span>)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="542">
+<pre><code>Text(0.5, 3.722222222222216, &#39;Resposta Predita&#39;)</code></pre>
+</div>
+<div class="output display_data">
+<p><img
+src="projeto5/3c95c685551da4b8f51dac5c9671c6d254fd903d.png" /></p>
+</div>
+</div>
+<section id="-interpretação-de-coeficientes" class="cell markdown"
+id="KHC8PKndeC0u">
+<h2>## Interpretação de coeficientes</h2>
+</section>
+<div class="cell code" data-execution_count="543"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="wPQL0iN8eC0v" data-outputId="aecb0ec7-4db5-4297-b052-42d7de22b054">
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(Y_test, model3.predict(X_test), target_names<span class="op">=</span>[<span class="st">&#39;Com doença Hepatica 0&#39;</span>,<span class="st">&#39;Sem doença Hepatica 1&#39;</span>]))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>                       precision    recall  f1-score   support
+
+Com doença Hepatica 0       0.84      0.88      0.86        76
+Sem doença Hepatica 1       0.57      0.48      0.52        25
+
+             accuracy                           0.78       101
+            macro avg       0.70      0.68      0.69       101
+         weighted avg       0.77      0.78      0.78       101
+
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="A6dCybLHeC0v">
+<p>Aqui observamos que o modelo ficou um pouco melhor que o primeiro
+logistico sme filtros</p>
+<p>Temos na <strong>Pecisão</strong> um valor medio 0,7 em relação ao
+anterior de 0,68.</p>
+<p>Temos um <strong>recall</strong> a sensibilidade dos valores
+positivos como 0,68 um pouco melhor que o primeiro logistico de
+0,64.</p>
+<p>Para termos uma melhor noção do treinamento utilizaremos a validação
+cruzada e retreinaremos o modelo. Na validação cruzada, o dataset é
+dividido aleatoriamente em varios grupos, o modelo é treinado com esses
+vários grupos separadamente e depois avaliados separadamente. Por fim,
+usamos a média das métricas para o modelo. Essa técnica ajuda a evitar a
+influência da divisão dos dados na métrica.</p>
+</div>
+<section id="validação-cruzada" class="cell markdown" id="dAVosxtWeC0v">
+<h2>Validação cruzada</h2>
+</section>
+<div class="cell code" data-execution_count="527"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="zOmzWUSleC0w" data-outputId="b9fa408d-a1e0-47a0-f2a1-a1fbb9bd30f6">
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> cross_val_score( model3, dataframe_filtrado.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_filtrado[<span class="st">&#39;doenca&#39;</span>], cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">&#39;f1&#39;</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cross validation, aqui dividimos o dataset em n grupos e usamos a metrica de f1-score</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Pontuação dos 5 testes: </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result))</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Média do Cross-Validation : </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result.mean()))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Pontuação dos 5 testes: [0.76923077 0.81481481 0.82926829 0.825      0.84210526 0.78378378
+ 0.75       0.73972603 0.8        0.83116883]
+Média do Cross-Validation : 0.7985097782236281
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="zZEqW9LgeC0x">
+<p>Aqui observamos que o modelo ficou relativamente bom usando a metrica
+F1, mas pior que o primeiro logistico sem filtros.</p>
+</div>
+<section id="-modelo-de-árvore-de-decisão" class="cell markdown"
+id="oOXLDoeteC0x">
+<h2>## Modelo de Árvore de Decisão</h2>
+</section>
+<div class="cell code" data-execution_count="544"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="TMR9xXmdeC0x" data-outputId="d88caa09-fcbd-41d0-e935-731264f7b571">
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split( dataframe_filtrado.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_filtrado[<span class="st">&#39;doenca&#39;</span>],</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                                                    test_size<span class="op">=</span><span class="fl">.20</span>, random_state<span class="op">=</span><span class="dv">55</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(X_train),</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(Y_train),</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(X_test),</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>      <span class="bu">len</span>(Y_test))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>404 404 101 101
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="LHfvegc7eC0y">
+<p>Aqui escolhemos uma árvore que quebra seus ramos em até 4 níveis de
+profundidade, isso resultaria em 4^2 = 16 folhas, ou grupos.</p>
+</div>
+<div class="cell code" data-execution_count="545"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:350}"
+id="gHZSrptSeC0y" data-outputId="2de046ce-2f25-45c6-8e7a-b1ea2e0571f3">
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>model4 <span class="op">=</span> DecisionTreeClassifier( max_depth <span class="op">=</span> <span class="dv">4</span> )</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>model4.fit(X_train, Y_train)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># matriz de confusão do primeiro modelo</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>cnf_matrix <span class="op">=</span> metrics.confusion_matrix(Y_test, model4.predict(X_test) )</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>))  <span class="co">#Tamanho do plot</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>sns.heatmap( cnf_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">&quot;YlGnBu&quot;</span> ,fmt<span class="op">=</span><span class="st">&#39;g&#39;</span>)</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Matriz de Confusão&#39;</span>)</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Resposta Correta Base de Dados&#39;</span>)</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Resposta Predita&#39;</span>)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="545">
+<pre><code>Text(0.5, 3.722222222222216, &#39;Resposta Predita&#39;)</code></pre>
+</div>
+<div class="output display_data">
+<p><img
+src="projeto5/4f8931a9f718fd3763821845b3871bd4d644e9d5.png" /></p>
+</div>
+</div>
+<div class="cell code" data-execution_count="546"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="8LDMZ4K8eC0y" data-outputId="8b3800f6-fa9d-44a1-d7e2-a6d2ef619685">
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>model2.get_n_leaves() <span class="co"># Retorne o número de folhas da árvore de decisão.</span></span></code></pre></div>
+<div class="output execute_result" data-execution_count="546">
+<pre><code>13</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="_qo69VD-eC0z">
+<p>Percebemos que a árvore não utilizou todas a profundidade dada.</p>
+</div>
+<section id="-interpretação-de-coeficientes" class="cell markdown"
+id="9CmHl4UvDJRI">
+<h2>## Interpretação de coeficientes</h2>
+</section>
+<div class="cell code" data-execution_count="547"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="bT4YokZXeC0z" data-outputId="f247a918-5495-4c82-f1b2-03cb3fe2f3fb">
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(Y_test, model4.predict(X_test), target_names<span class="op">=</span>[<span class="st">&#39;Com doença Hepatica 0&#39;</span>,<span class="st">&#39;Sem doença Hepatica 1&#39;</span>]))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>                       precision    recall  f1-score   support
+
+Com doença Hepatica 0       0.71      0.82      0.76        72
+Sem doença Hepatica 1       0.28      0.17      0.21        29
+
+             accuracy                           0.63       101
+            macro avg       0.49      0.50      0.49       101
+         weighted avg       0.59      0.63      0.60       101
+
+</code></pre>
+</div>
+</div>
+<section id="validação-cruzada" class="cell markdown" id="lSJ6OCa9eC0z">
+<h2>Validação cruzada</h2>
+</section>
+<div class="cell code" data-execution_count="532"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="vta87w1leC00" data-outputId="5eed1537-81a6-46eb-fabf-064e2f3431bd">
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> cross_val_score( model4, dataframe_filtrado.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_filtrado[<span class="st">&#39;doenca&#39;</span>], cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">&#39;f1&#39;</span>)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cross validation, aqui dividimos o dataset em n grupos e usamos a metrica de f1-score</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Pontuação dos 5 testes: </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result))</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Média do Cross-Validation : </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result.mean()))</span></code></pre></div>
+<div class="output stream stdout">
+<pre><code>Pontuação dos 5 testes: [0.73529412 0.71232877 0.8        0.81012658 0.61818182 0.77922078
+ 0.84337349 0.71428571 0.73684211 0.75949367]
+Média do Cross-Validation : 0.7509147048862277
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="kULQutmCeC00">
+<p>Aqui observamos que o modelo ficou relativamente bom usando a metrica
+F1, mas pior que a primeira árvore e o primeiro logistico sem filtros.
+Ou seja, o pior na métrica F1.</p>
+</div>
+<section id="validação-cruzada-com-base-eliminada-do-treinamento"
+class="cell markdown" id="TXkyUFZ0uvv9">
+<h2>Validação Cruzada com Base Eliminada do Treinamento</h2>
+</section>
+<div class="cell code" data-execution_count="533"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}"
+id="mUZifdENurQo" data-outputId="64a27e90-9707-41c3-dc65-f86f88e1f142">
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> cross_val_score( model3, dataframe_eliminados.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_eliminados[<span class="st">&#39;doenca&#39;</span>], cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">&#39;f1&#39;</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cross validation, aqui dividimos o dataset em n grupos e usamos a metrica de f1-score</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Pontuação dos n testes: </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result))</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Média do Cross-Validation : </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result.mean()))</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> cross_val_score( model4, dataframe_eliminados.drop(<span class="st">&#39;doenca&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>), dataframe_eliminados[<span class="st">&#39;doenca&#39;</span>], cv<span class="op">=</span><span class="dv">10</span>, scoring<span class="op">=</span><span class="st">&#39;f1&#39;</span>)</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="co"># cross validation, aqui dividimos o dataset em n grupos e usamos a metrica de f1-score</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Pontuação dos n testes: </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result))</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Média do Cross-Validation : </span><span class="sc">{0}</span><span class="st">&quot;</span>.<span class="bu">format</span>(result.mean()))</span></code></pre></div>
+<div class="output stream stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_split.py:700: UserWarning: The least populated class in y has only 9 members, which is less than n_splits=10.
+  warnings.warn(
+</code></pre>
+</div>
+<div class="output stream stdout">
+<pre><code>Pontuação dos n testes: [0.93333333 0.93333333 0.93333333 0.93333333 0.85714286 0.92307692
+ 0.83333333 0.83333333 1.         0.92307692]
+Média do Cross-Validation : 0.9103296703296703
+
+
+
+Pontuação dos n testes: [1.         0.93333333 0.93333333 0.93333333 0.93333333 0.93333333
+ 0.83333333 0.85714286 0.83333333 0.92307692]
+Média do Cross-Validation : 0.9113553113553113
+</code></pre>
+</div>
+<div class="output stream stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/sklearn/model_selection/_split.py:700: UserWarning: The least populated class in y has only 9 members, which is less than n_splits=10.
+  warnings.warn(
+</code></pre>
+</div>
+</div>
+<div class="cell markdown" id="hpwj8d8UzYEM">
+<p>Aqui vemos que embora os modelos sem filtro tenham uma média de
+F1-Score menores que os anteriores, eles são maiores com a dados de
+outliers eliminados enquanto compomos o filtro. A média F1 geral ficou
+em um intevalor &gt; 0,91, bem significativo.</p>
+</div>
+<section id="-duas-features-mais-importantes" class="cell markdown"
+id="m_mA--yyZDMS">
+<h2># Duas features mais importantes</h2>
+</section>
+<div class="cell code" data-execution_count="534"
+data-colab="{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:363}"
+id="buphSrf9xo3I" data-outputId="17d72eca-17cc-480e-d10f-833ac17d3fcb">
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(model3.coef_.T, index<span class="op">=</span>X_train.columns)</span></code></pre></div>
+<div class="output execute_result" data-execution_count="534">
+
+  <div id="df-18a51771-8c7d-4b94-b9ec-8fcbcd348313" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>idade</th>
+      <td>-0.020252</td>
+    </tr>
+    <tr>
+      <th>bt</th>
+      <td>0.334690</td>
+    </tr>
+    <tr>
+      <th>bd</th>
+      <td>-1.065220</td>
+    </tr>
+    <tr>
+      <th>fosfatase</th>
+      <td>-0.001158</td>
+    </tr>
+    <tr>
+      <th>sgpt</th>
+      <td>-0.011329</td>
+    </tr>
+    <tr>
+      <th>sgot</th>
+      <td>-0.005536</td>
+    </tr>
+    <tr>
+      <th>tp</th>
+      <td>-1.267314</td>
+    </tr>
+    <tr>
+      <th>alb</th>
+      <td>2.463634</td>
+    </tr>
+    <tr>
+      <th>ag</th>
+      <td>-3.389987</td>
+    </tr>
+    <tr>
+      <th>genero_Male</th>
+      <td>-0.007762</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-18a51771-8c7d-4b94-b9ec-8fcbcd348313')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-18a51771-8c7d-4b94-b9ec-8fcbcd348313 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-18a51771-8c7d-4b94-b9ec-8fcbcd348313');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-22fc91e5-0f0a-43d7-9bbe-15a701712ec3">
+  <button class="colab-df-quickchart" onclick="quickchart('df-22fc91e5-0f0a-43d7-9bbe-15a701712ec3')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-22fc91e5-0f0a-43d7-9bbe-15a701712ec3 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="cell markdown" id="7DLcgAbHz3n6">
+<p>As relações mais importantes aqui ,segunda a regressão logistica são
+em valores absolutos: <strong>ag</strong> seguido
+<strong>alb</strong>.</p>
+<p>Combinadas com outras deixam o modelo ainda mais significativo.</p>
+</div>
+<section
+id="51-qual-modelo-escolhido-olhando-para-a-precisão-de-detecção-de-doença-no-fígado"
+class="cell markdown" id="y98QDkPAZGjP">
+<h2>##5.1 Qual modelo escolhido olhando para a precisão de detecção de
+doença no fígado?</h2>
+</section>
+<div class="cell markdown" id="jy76aSirChdj">
+<p>O modelo logístico é mais adequado para classificar classes boleanas.
+Assim o <strong>modelo 1 de regressão logística sem filtro</strong>
+ficou com a maior F1 score após a validação cruzada.</p>
+</div>
+<section
+id="52-qual-modelo-escolhido-olhando-para-o-f1-score-do-rótulo-de-doença-do-fígado"
+class="cell markdown" id="val9nAmnZPyB">
+<h2>##5.2 Qual modelo escolhido olhando para o f1-score do rótulo de
+doença do fígado?</h2>
+</section>
+<div class="cell markdown" id="LTHeAzFWC39o">
+<p>O modelo logístico é mais adequado para classificar classes boleanas.
+Assim o <strong>modelo 3 de regressão logística filtrado</strong> ficou
+com a maior precisão entre todos.</p>
+<br/>
+<p>Autor : Ricardo R Lângaro.</p>
+</div>
+</body>
+</html>
