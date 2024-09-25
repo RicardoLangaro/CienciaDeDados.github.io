@@ -15,3 +15,5 @@ Utilizando-se do Dataset Elnino.</a>
 <a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/projeto4.html"> Projeto 5 - Uso de Árvores de Decisão para Classificar Plantas.</a>
 
 <a href="https://ricardolangaro.github.io/CienciaDeDados.github.io/projeto5.html"> Projeto 6 - Comparação de Modelos e Validação Cruzada para Classificar Doenças no Fígado.</a>
+
+<a href="https://public.tableau.com/app/profile/ricardo.langaro/viz/AnaliseBancodeVendasSuperloja/Histria1"> Projeto 7 - Storytelling de uma Superloja com Tableau.</a>
